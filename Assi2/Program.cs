@@ -15,12 +15,12 @@ namespace Assi2
             try
             {
                 Console.WriteLine(Constants.GreetingsMessage);
-                CuboidData obj = DataInput.DataIn();        //Takes data of cube 
-                Console.WriteLine(Constants.ResultMessage+Walk3D.GetPathSum(obj));
+                CuboidData Cuboid  = DataInput.DataIn();        //Takes data of cube 
+                Console.WriteLine(Constants.ResultMessage+Walk3D.GetPathSum(Cuboid));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(Constants.ErrorFirstMessage + e.StackTrace + Constants.ErrorMessage+ e.Message);
+                Console.WriteLine(Constants.ErrorFirstMessage + ex.StackTrace + Constants.ErrorMessage+ ex.Message);
             }
         }
     }

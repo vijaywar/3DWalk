@@ -1,4 +1,5 @@
 ﻿using Assi2.DataLayer;
+using Assi2.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,17 +23,17 @@ namespace Assi2.Controller
                 b = Convert.ToInt32(arr[1]);
                 c = Convert.ToInt32(arr[2]);
             }
-            else { throw new InvalidFormatException("Invalid W H D not provided!"); }//throw error if the format is not correct.
+            else { throw new InvalidFormatException(Constants.InvalidWHD); }//throw error if the format is not correct.
             CuboidData obj = new CuboidData(a,b,c);
             for (int i = 0; i < b; i++)
             {
                 string Istr = Console.ReadLine();
                 string[] Iarr = Istr.Split(" | ");          //split input with | as seperator
-                    if (Iarr.Length != c) throw new InvalidFormatException("Invalid Cuboid data!");
+                    if (Iarr.Length != c) throw new InvalidFormatException(Constants.InvalidCuboidFormat);
                 for (int j = 0; j < Iarr.Length; j++)
                 {
                         string[] Jarr = Iarr[j].Split(" ");  //split input with space as seperator
-                        if (Jarr.Length != a) throw new InvalidFormatException("Invalid Cuboid data!");
+                        if (Jarr.Length != a) throw new InvalidFormatException(Constants.InvalidCuboidFormat);
                     for (int k = 0; k < Jarr.Length; k++)
                     {
                         obj.Cuboiddata[i, j, k] = Convert.ToInt32(Jarr[k]);     //adds data to the Cuboiddata Multidimensional array

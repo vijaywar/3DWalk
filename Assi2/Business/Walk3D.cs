@@ -1,4 +1,5 @@
 ﻿using Assi2.DataLayer;
+using Assi2.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,11 +17,11 @@ namespace Assi2.Business
         /// <param name="a">x index</param>
         /// <param name="b">y index</param>
         /// <param name="c">z index</param>
-        /// <param name="obj">Cuboiddata object</param>
+        /// <param name="cuboid">Cuboiddata object</param>
         /// <returns>returns bool value visited given cube visited or not </returns>
-        public static bool Visited(int a,int b,int c,CuboidData obj)
+        public static bool Visited(int a,int b,int c,CuboidData cuboid)
         {
-            return obj.Visited.Contains(CuboidData.GetPath(a,b,c));
+            return cuboid.Visited.Contains(CuboidData.GetPath(a,b,c));
         }
        
 
@@ -50,22 +51,27 @@ namespace Assi2.Business
                 checkedd = true;//sets path ended
             }
         }
-        public static int GetPathSum(CuboidData obj)
+        /// <summary>
+        /// This functions finds the 3D max walk
+        /// </summary>
+        /// <param name="cuboid">Cuboid object to walk</param>
+        /// <returns>Total of 3d Max walk</returns>
+        public static int GetPathSum(CuboidData cuboid)
         {
-            Console.WriteLine("path now is "+CuboidData.GetPath(obj.Tempb,obj.Tempa,obj.Tempc)); //prints the current positon to screen
-            PathTotal += obj.Cuboiddata[obj.Tempb,obj.Tempc,obj.Tempa];             //adds the current position value to total
-            obj.Visited.Add(CuboidData.GetPath(obj.Tempb,obj.Tempc,obj.Tempa)); //adds path to the visited list of cuboiddata object
+            Console.WriteLine(Constants.PathNow+CuboidData.GetPath(cuboid.Tempb,cuboid.Tempc,cuboid.Tempa)); //prints the current positon to screen
+            PathTotal += cuboid.Cuboiddata[cuboid.Tempb,cuboid.Tempc,cuboid.Tempa];             //adds the current position value to total
+            cuboid.Visited.Add(CuboidData.GetPath(cuboid.Tempb,cuboid.Tempc,cuboid.Tempa)); //adds path to the visited list of cuboiddata object
             checkedd= true; //path end or not if path don't exists it will be true else be chaned to false.
 
-            MoveNext(obj);
+            MoveNext(cuboid);
             if (!checkedd)//checkedd is a vaiable that gives true when the walk ends.
             {
-                Console.WriteLine("High value :"+MaxValue + " in " + Nextb + "" + Nexta + "" + Nextc);
-                obj.Tempa = Nexta;
-                obj.Tempb = Nextb;
-                obj.Tempc = Nextc;
+                Console.WriteLine(Constants.HighValue+MaxValue +Constants.In + Nextb + "" + Nextc + "" + Nexta);
+                cuboid.Tempa = Nexta;
+                cuboid.Tempb = Nextb;
+                cuboid.Tempc = Nextc;
                 MaxValue = 0;
-                return GetPathSum(obj);
+                return GetPathSum(cuboid);
             }
             else
             {
@@ -84,51 +90,61 @@ namespace Assi2.Business
             CheckDeeperAndShallower(obj);
             CheckUpAndDown(obj);
         }
-        public static void CheckUpAndDown(CuboidData obj)
+        /// <summary>
+        /// Checks above and below the current location for next max value to move and store value in static global variables.
+        /// </summary>
+        /// <param name="cuboid">Takes cudoid object</param>
+         static void CheckUpAndDown(CuboidData cuboid)
         {
-            ///bbelow 2 if blocks checks for up and down has max value and not visited
            int Incrementer = 1;
-            while (obj.Tempc + Incrementer < obj.Depth)
+            while (cuboid.Tempc + Incrementer < cuboid.Depth)
             {
-                FindPath(obj.Tempa, obj.Tempb, obj.Tempc + Incrementer, obj);
+                FindPath(cuboid.Tempa, cuboid.Tempb, cuboid.Tempc + Incrementer, cuboid);
                 Incrementer++;
             }
             Incrementer = 1;
-            while (obj.Tempc - Incrementer >= 0)
+            while (cuboid.Tempc - Incrementer >= 0)
             {
-                FindPath(obj.Tempa, obj.Tempb, obj.Tempc - Incrementer, obj);
+                FindPath(cuboid.Tempa, cuboid.Tempb, cuboid.Tempc - Incrementer, cuboid);
                 Incrementer++;
             }
         }
-        public static void CheckRightAndLet(CuboidData obj)
+        /// <summary>
+        /// checks right and left side of our current position for next highest value and store it in static global variables.
+        /// </summary>
+        /// <param name="cuboid">Takes cuboid object</param>
+        static void CheckRightAndLet(CuboidData cuboid)
         {
             int Incrementer = 1;
             //checks left and right
-            while (obj.Tempa + Incrementer < obj.Width)
+            while (cuboid.Tempa + Incrementer < cuboid.Width)
             {
-                FindPath(obj.Tempa + Incrementer, obj.Tempb, obj.Tempc, obj);
+                FindPath(cuboid.Tempa + Incrementer, cuboid.Tempb, cuboid.Tempc, cuboid);
                 Incrementer++;
             }
             Incrementer = 1;
-            while (obj.Tempa - Incrementer >= 0)
+            while (cuboid.Tempa - Incrementer >= 0)
             {
-                FindPath(obj.Tempa - Incrementer, obj.Tempb, obj.Tempc, obj);
+                FindPath(cuboid.Tempa - Incrementer, cuboid.Tempb, cuboid.Tempc, cuboid);
                 Incrementer++;
             }
         }
-        public static void CheckDeeperAndShallower(CuboidData obj)
+        /// <summary>
+        /// checks deeper and shollower cubes for highest value to move next and store result in global varibales.
+        /// </summary>
+        /// <param name="cuboid">Takes cuboiddata object</param>
+        static void CheckDeeperAndShallower(CuboidData cuboid)
         {
            int Incrementer = 1;
-            //checks for deeper and shallower
-            while (obj.Tempb + Incrementer < obj.Height)
+            while (cuboid.Tempb + Incrementer < cuboid.Height)
             {
-                FindPath(obj.Tempa, obj.Tempb + Incrementer, obj.Tempc, obj);
+                FindPath(cuboid.Tempa, cuboid.Tempb + Incrementer, cuboid.Tempc, cuboid);
                 Incrementer++;
             }
             Incrementer = 1;
-            while (obj.Tempb - Incrementer >= 0)
+            while (cuboid.Tempb - Incrementer >= 0)
             {
-                FindPath(obj.Tempa, obj.Tempb - Incrementer, obj.Tempc, obj);
+                FindPath(cuboid.Tempa, cuboid.Tempb - Incrementer, cuboid.Tempc, cuboid);
                 Incrementer++;
             }
         }
