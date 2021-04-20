@@ -24,7 +24,7 @@ namespace Assi2.Controller
                 c = Convert.ToInt32(arr[2]);
             }
             else { throw new InvalidFormatException(Constants.InvalidWHD); }//throw error if the format is not correct.
-            CuboidData obj = new CuboidData(a,b,c);
+            CuboidData cuboid = new CuboidData(a,b,c);
             for (int i = 0; i < b; i++)
             {
                 string Istr = Console.ReadLine();
@@ -36,12 +36,12 @@ namespace Assi2.Controller
                         if (Jarr.Length != a) throw new InvalidFormatException(Constants.InvalidCuboidFormat);
                     for (int k = 0; k < Jarr.Length; k++)
                     {
-                        obj.Cuboiddata[i, j, k] = Convert.ToInt32(Jarr[k]);     //adds data to the Cuboiddata Multidimensional array
+                        cuboid.Cuboiddata[i, j, k] = Convert.ToInt32(Jarr[k]);     //adds data to the Cuboiddata Multidimensional array
                     }
                 }
 
             }
-            return obj;
+            return cuboid;
             }
             catch(Exception e)
             {
