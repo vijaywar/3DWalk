@@ -9,7 +9,7 @@ namespace Assi2.Business
     static class Walk3D
     {
         static int MaxValue, Nexta, Nextb, Nextc, PathTotal;//temporary max value and store temporary array indexs of next move
-        static bool checkedd;//static variable that gives path ened or not.
+        static bool Pathend;//static variable that gives path ened or not.
 
         /// <summary>
         /// Checks the visited list for the given path exists or not
@@ -40,15 +40,15 @@ namespace Assi2.Business
                 Nexta = tempa;
                 Nextb = tempb;
                 Nextc = tempc;
-                checkedd = false;//Path ends or not value
+                Pathend = false;//Path ends or not value
             }
             else if (MaxValue < obj.Cuboiddata[tempb, tempc, tempa]) { 
                 MaxValue = obj.Cuboiddata[tempb, tempc, tempa];
-                checkedd = true;//sets path ended
+                Pathend = true;//sets path ended
             }
             else if (MaxValue == obj.Cuboiddata[tempb, tempc, tempa])
             {
-                checkedd = true;//sets path ended
+                Pathend = true;//sets path ended
             }
         }
         /// <summary>
@@ -61,10 +61,10 @@ namespace Assi2.Business
             Console.WriteLine(Constants.PathNow+CuboidData.GetPath(cuboid.Tempb,cuboid.Tempc,cuboid.Tempa)); //prints the current positon to screen
             PathTotal += cuboid.Cuboiddata[cuboid.Tempb,cuboid.Tempc,cuboid.Tempa];             //adds the current position value to total
             cuboid.Visited.Add(CuboidData.GetPath(cuboid.Tempb,cuboid.Tempc,cuboid.Tempa)); //adds path to the visited list of cuboiddata object
-            checkedd= true; //path end or not if path don't exists it will be true else be chaned to false.
+            Pathend= true; //path end or not if path don't exists it will be true else be chaned to false.
 
             MoveNext(cuboid);
-            if (!checkedd)//checkedd is a vaiable that gives true when the walk ends.
+            if (!Pathend)//checkedd is a vaiable that gives true when the walk ends.
             {
                 Console.WriteLine(Constants.HighValue+MaxValue +Constants.In + Nextb + "" + Nextc + "" + Nexta);
                 cuboid.Tempa = Nexta;
