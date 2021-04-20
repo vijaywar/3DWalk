@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assi2.Controller
 {
-    static class DataInput
+    class DataInput
     {
         /// <summary>
         /// Takes input of cuboid data form user and returns the CuboidData object!
@@ -43,9 +43,9 @@ namespace Assi2.Controller
             }
             return cuboid;
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw e;
+                throw ex;
             }
         }
         /// <summary>

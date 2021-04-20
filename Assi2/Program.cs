@@ -16,7 +16,9 @@ namespace Assi2
             {
                 Console.WriteLine(Constants.GreetingsMessage);
                 CuboidData Cuboid  = DataInput.DataIn();        //Takes data of cube 
-                Console.WriteLine(Constants.ResultMessage+Walk3D.GetPathSum(Cuboid));
+                Walk3D Walk = new Walk3D();
+                int PathWalkSum = Walk.GetPathSum(Cuboid);
+                Console.WriteLine(Constants.ResultMessage+PathWalkSum);
             }
             catch (Exception ex)
             {

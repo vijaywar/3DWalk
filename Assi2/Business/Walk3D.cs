@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assi2.Business
 {
-    static class Walk3D
+    class Walk3D
     {
         static int MaxValue, Nexta, Nextb, Nextc, PathTotal;//temporary max value and store temporary array indexs of next move
         static bool Pathend;//static variable that gives path ened or not.
@@ -19,7 +19,7 @@ namespace Assi2.Business
         /// <param name="c">z index</param>
         /// <param name="cuboid">Cuboiddata object</param>
         /// <returns>returns bool value visited given cube visited or not </returns>
-        public static bool Visited(int a,int b,int c,CuboidData cuboid)
+        private bool Visited(int a,int b,int c,CuboidData cuboid)
         {
             return cuboid.Visited.Contains(CuboidData.GetPath(a,b,c));
         }
@@ -32,7 +32,7 @@ namespace Assi2.Business
         /// <param name="tempb">y index</param>
         /// <param name="tempc">z index</param>
         /// <param name="obj">Cuboiddata object</param>
-        public static void FindPath(int tempa,int tempb,int tempc,CuboidData obj)
+        private void FindPath(int tempa,int tempb,int tempc,CuboidData obj)
         {
             if (MaxValue < obj.Cuboiddata[tempb, tempc, tempa] && !Visited(tempb, tempc, tempa, obj))
             {
@@ -56,7 +56,7 @@ namespace Assi2.Business
         /// </summary>
         /// <param name="cuboid">Cuboid object to walk</param>
         /// <returns>Total of 3d Max walk</returns>
-        public static int GetPathSum(CuboidData cuboid)
+        public int GetPathSum(CuboidData cuboid)
         {
             Console.WriteLine(Constants.PathNow+CuboidData.GetPath(cuboid.Tempb,cuboid.Tempc,cuboid.Tempa)); //prints the current positon to screen
             PathTotal += cuboid.Cuboiddata[cuboid.Tempb,cuboid.Tempc,cuboid.Tempa];             //adds the current position value to total
@@ -84,7 +84,7 @@ namespace Assi2.Business
         /// and sets the global temporary values to the available options.
         /// </summary>
         /// <param name="obj">Cuboid object</param>
-        public static void MoveNext(CuboidData obj)
+        private  void MoveNext(CuboidData obj)
         {
             CheckRightAndLet(obj);
             CheckDeeperAndShallower(obj);
@@ -94,7 +94,7 @@ namespace Assi2.Business
         /// Checks above and below the current location for next max value to move and store value in static global variables.
         /// </summary>
         /// <param name="cuboid">Takes cudoid object</param>
-         static void CheckUpAndDown(CuboidData cuboid)
+         private void CheckUpAndDown(CuboidData cuboid)
         {
            int Incrementer = 1;
             while (cuboid.Tempc + Incrementer < cuboid.Depth)
@@ -113,7 +113,7 @@ namespace Assi2.Business
         /// checks right and left side of our current position for next highest value and store it in static global variables.
         /// </summary>
         /// <param name="cuboid">Takes cuboid object</param>
-        static void CheckRightAndLet(CuboidData cuboid)
+        private void CheckRightAndLet(CuboidData cuboid)
         {
             int Incrementer = 1;
             //checks left and right
@@ -133,7 +133,7 @@ namespace Assi2.Business
         /// checks deeper and shollower cubes for highest value to move next and store result in global varibales.
         /// </summary>
         /// <param name="cuboid">Takes cuboiddata object</param>
-        static void CheckDeeperAndShallower(CuboidData cuboid)
+        private void CheckDeeperAndShallower(CuboidData cuboid)
         {
            int Incrementer = 1;
             while (cuboid.Tempb + Incrementer < cuboid.Height)
