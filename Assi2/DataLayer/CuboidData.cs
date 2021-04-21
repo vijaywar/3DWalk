@@ -10,20 +10,20 @@ namespace Assi2.DataLayer
         public int Width, Height, Depth;
         public List<string> Visited = new List<string>();
         public  int CurrentX,CurrentY,CurrentZ;//Location coordinates x y z
-        public  CuboidData(int a,int b,int c)
+        public  CuboidData(int x,int y,int z)
         {
-            Cuboiddata = new int[b,c,a]; 
-            Width = a;
-            Height = b;
-            Depth = c;
-            CurrentX = a / 2;  //x coordinate center value
-            CurrentY = b / 2;  //y coordinate center value
-            CurrentZ = c / 2;  //z coordinate center value
+            Cuboiddata = new int[y,z,x]; 
+            Width = x;
+            Height = y;
+            Depth = z;
+            CurrentX = x / 2;  //x coordinate center value
+            CurrentY = y / 2;  //y coordinate center value
+            CurrentZ = z / 2;  //z coordinate center value
             Visited.Add(GetPath(CurrentX,CurrentY,CurrentZ));//center of the cube
         }
-        public static string GetPath(int a,int b,int c)
+        public static string GetPath(int x,int y,int z)
         {
-            return a.ToString() + b.ToString() + c.ToString();
+            return x.ToString() + y.ToString() + z.ToString();
         }
         
        
