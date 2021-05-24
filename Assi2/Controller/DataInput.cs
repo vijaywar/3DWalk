@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Assi2.Controller
 {
+
     class DataInput
     {
         /// <summary>
